@@ -166,6 +166,16 @@ func BgRGB(r, g, b int) *Color {
 	return New(background, 2, Attribute(r), Attribute(g), Attribute(b))
 }
 
+// Clone creates a copy of a color with the same attributes.
+func (c *Color) Clone() *Color {
+	cloned := New(c.params...)
+	if c.noColor != nil {
+		noColor := *c.noColor
+		cloned.noColor = &noColor
+	}
+	return cloned
+}
+
 // AddRGB is used to chain foreground RGB SGR parameters. Use as many as parameters to combine
 // and create custom color objects. Example: .Add(34, 0, 12).Add(255, 128, 0).
 func (c *Color) AddRGB(r, g, b int) *Color {
